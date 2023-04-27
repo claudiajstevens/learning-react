@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { useTransition } from 'react-spring'
+import { useTransition, animated} from 'react-spring' //'@react-spring/web'
 
 function Nav(){
     //this is creating a variable called showMenu, which is going to be
@@ -15,31 +15,40 @@ function Nav(){
     //the page
     const [showMenu, setShowMenu] = useState(false)
 
+    //adding transistion for when you open the menu
+    const transistions = useTransition(showMenu, {
+        // key: showMenu,
+        from: { position: 'absolute', opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 0},
+        exitBeforeEnter: true,
+    })
+
     // className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
     // mask className="bg-black-t-50 fixed top-0 left-0 w-full h-full z-50"
 
-    let menu
-    //want an overlay when menu is up to make menu stand out from background
-    let menuMask
+    // let menu
+    // //want an overlay when menu is up to make menu stand out from background
+    // let menuMask
     
-    //will only show menu if showMenu is true
-    if(showMenu){
-        menu = 
-        <div
-            className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
-        > 
-            The menu 
+    // //will only show menu if showMenu is true
+    // if(showMenu){
+    //     menu = 
+    //     <div
+    //         className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
+    //     > 
+    //         The menu 
 
-        </div>
+    //     </div>
 
-        menuMask = 
-        <div 
-            className="bg-black-t-50 fixed top-0 left-0 w-full h-full z-50"
-            onClick={() => setShowMenu(false)}
-        >
+    //     menuMask = 
+    //     <div 
+    //         className="bg-black-t-50 fixed top-0 left-0 w-full h-full z-50"
+    //         onClick={() => setShowMenu(false)}
+    //     >
 
-        </div>
-    }
+    //     </div>
+    // }
 
     // const transition = useTransition(show, null,{
     //     from: {position: 'absolute', opacity: 0},
@@ -56,9 +65,32 @@ function Nav(){
                 />
             </span>
 
-            { menuMask }
+            {
+                transistions(( props, item, key ) =>
+                    item && 
+                    <animated.div 
+                        key={key} 
+                        style={props}
+                        className="bg-black-t-50 fixed top-0 left-0 w-full h-full z-50"
+                        onClick={() => setShowMenu(false)}
+                    >
+                    </animated.div>
+                )
+            }
 
-            { menu }
+            {
+                transistions(( props, item, key ) =>
+                    item && 
+                    <animated.div 
+                        key={key} 
+                        style={props}
+                        className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
+                    >
+                        This is the menu
+                    </animated.div>
+                )
+            }
+
         </nav>
     )
 }
