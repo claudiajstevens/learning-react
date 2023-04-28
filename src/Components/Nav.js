@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useTransition, animated} from 'react-spring' //'@react-spring/web'
+import NavMenu from './NavMenu'
 
 function Nav(){
     //this is creating a variable called showMenu, which is going to be
@@ -93,12 +94,8 @@ function Nav(){
                         style={props}
                         className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow p-3"
                     >
-                        <span className='font-bold'>
-                            The menu
-                        </span>
-                        <ul>
-                            <li>Home</li>
-                        </ul>
+                        <NavMenu 
+                            closeMenu={() => setShowMenu(false)}/>
                     </animated.div>
                 )
             }

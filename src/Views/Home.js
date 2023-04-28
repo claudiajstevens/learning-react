@@ -1,10 +1,12 @@
 import React from 'react'
+import HelloWorld from '../Components/HelloWord'
 
 function Home(){
     return(
-        <home>
+        <div>
             <h1 className="font-bold text=2xl">This is the home page</h1>
-        </home>
+            <HelloWorld name="Claudia" />
+        </div>
     )
 }
 
