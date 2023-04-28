@@ -6,7 +6,7 @@ import { useTransition, animated} from 'react-spring' //'@react-spring/web'
 function Nav(){
     //this is creating a variable called showMenu, which is going to be
     //the state to check whether we should show the menu
-    //
+    //2e
     //then we are declaring that we are going to use a function that will
     //change the value of this variable
     //
@@ -16,12 +16,19 @@ function Nav(){
     const [showMenu, setShowMenu] = useState(false)
 
     //adding transistion for when you open the menu
-    const transistions = useTransition(showMenu, {
+    const maskTransistions = useTransition(showMenu, {
         // key: showMenu,
         from: { position: 'absolute', opacity: 0 },
         enter: { opacity: 1 },
         leave: { opacity: 0},
-        exitBeforeEnter: true,
+    })
+
+    const menuTransistions = useTransition(showMenu, {
+        // key: showMenu,
+        from: { opacity: 0, transform: 'translateX(-100%)' },
+        enter: { opacity: 1, transform: 'translateX(0%)' },
+        leave: { opacity: 0, transform: 'translateX(-100%)'},
+        // exitBeforeEnter: true,
     })
 
     // className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
@@ -66,7 +73,7 @@ function Nav(){
             </span>
 
             {
-                transistions(( props, item, key ) =>
+                maskTransistions(( props, item, key ) =>
                     item && 
                     <animated.div 
                         key={key} 
@@ -79,14 +86,19 @@ function Nav(){
             }
 
             {
-                transistions(( props, item, key ) =>
+                menuTransistions(( props, item, key ) =>
                     item && 
                     <animated.div 
                         key={key} 
                         style={props}
-                        className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow"
+                        className="fixed bg-white top-0 left-0 w-4/5 h-full z-50 shadow p-3"
                     >
-                        This is the menu
+                        <span className='font-bold'>
+                            The menu
+                        </span>
+                        <ul>
+                            <li>Home</li>
+                        </ul>
                     </animated.div>
                 )
             }
