@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function NavMenu(props){
     return(
-        <navMenu>
+        <div>
             <div className='font-bold py-3'>
                 App Name
             </div>
@@ -27,7 +27,7 @@ function NavMenu(props){
                         </Link>
                     </li>
                 </ul>
-        </navMenu>
+        </div>
     )
 }
 

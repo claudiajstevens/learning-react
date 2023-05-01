@@ -12,26 +12,29 @@ import Footer from './Components/Footer';
 
 import Home from './Views/Home';
 import About from './Views/About';
+import Product from './Views/Product';
 
 
 function App() {
   return (
     <div>
-        <Header />
-        {/* <CounterExample /> */}
-
-      <div className="p-3">
+        
         {/* All links must be within a Router element */}
         <Router>
-          <Routes>
+          <Header />
+          {/* <CounterExample /> */}
+
+          <div className="p-3">
+            <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/about" element={<About />}></Route>
-          </Routes>
+            <Route exact path="/products/:id" element={<Product />}></Route>
+            </Routes>
+          </div>
+          
+          <Footer />
 
         </Router>
-      </div>
-      
-      <Footer />
 
     </div>
   );
