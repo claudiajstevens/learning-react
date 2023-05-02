@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loader from "../Components/Loader";
+import { useAxiosGet } from "../Hooks/HttpRequests";
 
 function Product(){
     //useParams hook allows us to addes the parameters in the url
@@ -12,54 +13,10 @@ function Product(){
     //instead of single or double quotes
     const url = `https://64503acfb61a9f0c4d351361.mockapi.io/products/${id}`
     
-    //turning useState variable into an object so we can add
-    //loading variable while data is loading
-    const [product, setProduct] = useState({
-        loading: false,
-        data: null,
-        error: false
-    })
+    let product = useAxiosGet(url)
 
     let content = null
-    //need to use axios function in the useEffect hook or
-    //it will just endlessly run requests
-    //
-    //useEffect takes in two arguments:
-        //function of code we want to run
-        //variable we want to monitor to see if it changes
-            //if it does change rerun the function
-    useEffect(() => {
-        //this will set the loading icon while data is being fetched
-        setProduct({
-            loading: true,
-            data: null,
-            error: false
-        })
 
-        //use axios to GET the url
-        //that returns a promise
-        //we can chain on a 'then' function
-            //then function returns a responce from that request
-                //run a function on the responce that will set a variable
-        axios.get(url)
-            .then(response => {
-                setProduct({
-                    loading: false,
-                    data: response.data,
-                    error: false,
-                })
-        })
-        //there might be a search for a product that does not exist
-        //without catch then loader will just run forever
-        //with catch will check if there is an error getting a product
-        .catch(() => {
-            setProduct({
-                loading: false,
-                data: null,
-                error: true,
-            })
-        })
-    }, [url])
 
 
     //creating a display if there is an error

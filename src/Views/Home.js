@@ -4,48 +4,13 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import Loader from '../Components/Loader'
 import ProductCard from '../Components/ProductCard'
+import { useAxiosGet } from '../Hooks/HttpRequests'
 
 function Home(){
     let content = null
     const url = `https://64503acfb61a9f0c4d351361.mockapi.io/products?page=1&limit=10`
-    const [products, setProducts] = useState({
-        loading: false,
-        data: null,
-        error: false
-    })
-
-    useEffect(() => {
-        //this will set the loading icon while data is being fetched
-        setProducts({
-            loading: true,
-            data: null,
-            error: false
-        })
-
-        //use axios to GET the url
-        //that returns a promise
-        //we can chain on a 'then' function
-            //then function returns a responce from that request
-                //run a function on the responce that will set a variable
-        axios.get(url)
-            .then(response => {
-                setProducts({
-                    loading: false,
-                    data: response.data,
-                    error: false,
-                })
-        })
-        //there might be a search for a products that does not exist
-        //without catch then loader will just run forever
-        //with catch will check if there is an error getting a products
-        .catch(() => {
-            setProducts({
-                loading: false,
-                data: null,
-                error: true,
-            })
-        })
-    }, [url])
+    
+    let products = useAxiosGet(url)
 
     if(products.error){
         content = 
