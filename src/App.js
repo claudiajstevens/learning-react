@@ -17,7 +17,9 @@ import Product from './Views/Product';
 
 function App() {
   return (
-    <div>
+    //adding relative to make sure footer stays at bottom
+    //of the screen since its class is absolute
+    <div className="relative pb-10 min-h-screen">
         
         {/* All links must be within a Router element */}
         <Router>
